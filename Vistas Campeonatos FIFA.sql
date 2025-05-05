@@ -9,8 +9,22 @@ AS
 			JOIN pais P ON C.idpais=P.id
 			JOIN estadio S ON E.idestadio = S.id;
 		
+CREATE VIEW vEstadio
+AS
+	SELECT C.ciudad || ' (' || P.pais || ')' ciudad,
+		E.*
+		FROM Estadio E
+			JOIN ciudad C ON E.idciudad=C.id
+			JOIN pais P ON p.id=C.idpais;
+
 
 SELECT *
 	FROM vEncuentro
-	WHERE campeonato='FIFA U-20 Women''s World Cup Colombia 2024';
+	WHERE campeonato='FIFA World Cup 2022';
+
+SELECT *
+	FROM vEstadio
+	WHERE ciudad LIKE '%Catar%'
+
+
 	
