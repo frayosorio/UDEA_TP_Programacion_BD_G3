@@ -240,7 +240,7 @@ BEGIN
 		INSERT INTO encuentro
 			(id, idpais1, goles1, idpais2, goles2, fecha, idestadio, idfase, idcampeonato)
 			VALUES(nuevoIdEncuentro, idPais1Grupo, 0, idPais2Grupo, 2, '2022-11-20', idEstadio1, 1, nuevoIdCampeonato);
-			nuevoIdEncuentro := nuevoIdEncuentro + 1;
+		nuevoIdEncuentro := nuevoIdEncuentro + 1;
 	END IF;
 
 	--Senegal 0:2 Países Bajos
@@ -409,6 +409,64 @@ BEGIN
 			VALUES(nuevoIdEncuentro, idPais4Grupo, 0, idPais1Grupo, 3, '2022-11-29', idEstadio6, 1, nuevoIdCampeonato);
 			nuevoIdEncuentro := nuevoIdEncuentro + 1;
 	END IF;
+
+--***** Encuentros GRUPO F *****
+
+	--validar si ya existe el pais 'Portugal'
+	SELECT id INTO idPais1Grupo FROM pais WHERE pais='Portugal';
+	IF idPais1Grupo IS NULL THEN
+		INSERT INTO pais
+			(id, pais, entidad)
+			VALUES(nuevoIdPais, 'Portugal', '');
+		idPais1Grupo := nuevoIdPais;
+		nuevoIdPais := nuevoIdPais + 1;
+	END IF;
+
+	--validar si ya existe el pais 'Corea del Sur'
+	SELECT id INTO idPais2Grupo FROM pais WHERE pais='Corea del Sur';
+	IF idPais2Grupo IS NULL THEN
+		INSERT INTO pais
+			(id, pais, entidad)
+			VALUES(nuevoIdPais, 'Corea del Sur', '');
+		idPais2Grupo := nuevoIdPais;
+		nuevoIdPais := nuevoIdPais + 1;
+	END IF;
+
+	--validar si ya existe el pais 'Uruguay'
+	SELECT id INTO idPais3Grupo FROM pais WHERE pais='Uruguay';
+	IF idPais3Grupo IS NULL THEN
+		INSERT INTO pais
+			(id, pais, entidad)
+			VALUES(nuevoIdPais, 'Uruguay', '');
+		idPais3Grupo := nuevoIdPais;
+		nuevoIdPais := nuevoIdPais + 1;
+	END IF;
+
+	--validar si ya existe el pais 'Ghana'
+	SELECT id INTO idPais4Grupo FROM pais WHERE pais='Ghana';
+	IF idPais4Grupo IS NULL THEN
+		INSERT INTO pais
+			(id, pais, entidad)
+			VALUES(nuevoIdPais, 'Ghana', '');
+		idPais4Grupo := nuevoIdPais;
+		nuevoIdPais := nuevoIdPais + 1;
+	END IF;
+
+	--Validar si ya estan los paises en el grupo
+	SELECT COUNT(*) INTO totalPaisesGrupo
+		FROM grupopais
+		WHERE idgrupo=nuevoIdGrupo+7;
+
+	IF totalPaisesGrupo=0 THEN
+		INSERT INTO grupopais
+			(idgrupo, idpais)
+			VALUES
+			(nuevoIdGrupo+7, idPais1Grupo),
+			(nuevoIdGrupo+7, idPais2Grupo),
+			(nuevoIdGrupo+7, idPais3Grupo),
+			(nuevoIdGrupo+7, idPais4Grupo);
+	END IF;
+
 
 -- Ciudades y estadios
 -- 1: Jor       - 1: Estadio Al Bayt

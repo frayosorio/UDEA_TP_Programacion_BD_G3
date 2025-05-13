@@ -38,7 +38,12 @@ SELECT *
 
 SELECT *
 	FROM vEstadio
-	WHERE ciudad LIKE '%Catar%'
+	WHERE ciudad LIKE '%Colombia%';
+
+
+
+	
+
 
 
 
